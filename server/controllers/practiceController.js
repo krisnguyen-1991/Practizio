@@ -36,6 +36,9 @@ BE CREATIVE AND SPECIFIC:
 - Use varied question structures
 - Ask about memorable experiences, not just preferences
 - Be playful, surprising, or thought-provoking
+- IMPORTANT: Keep questions SIMPLE - ask ONE thing at a time
+- NEVER use compound questions with "and" (e.g., "...and what made it special?")
+- Keep questions SHORT and FOCUSED on a single topic
 
 INSPIRATION - Here are example styles (create NEW questions, don't copy these):
 • "What's the most adventurous food you've ever tried?"
@@ -57,6 +60,9 @@ Create ONE engaging question that's:
 - Interesting and unique
 - Natural and conversational
 - Easy to understand
+- SIMPLE - asks about ONE thing only (no compound questions)
+- SHORT - no more than 12-15 words
+- NO "and" clauses that ask multiple things
 
 Then transform it into a "Tell me about..." statement and provide an experience map hint.
 

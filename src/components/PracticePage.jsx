@@ -13,7 +13,6 @@ const PracticePage = () => {
   const [inputMode, setInputMode] = useState('type'); // 'type' or 'speak'
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = React.useRef(null);
-  const [transcript, setTranscript] = useState('');
 
   /**
    * Auto-start question generation if coming from main page
@@ -25,6 +24,7 @@ const PracticePage = () => {
     if (autostart === 'true' && !currentQuestion && !loading) {
       handleStartPracticing();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -54,7 +54,6 @@ const PracticePage = () => {
 
     try {
       setError(null);
-      setTranscript('');
       
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
@@ -78,7 +77,6 @@ const PracticePage = () => {
         }
         
         const fullTranscript = finalText + interimTranscript;
-        setTranscript(fullTranscript);
         setStudentAnswer(fullTranscript);
       };
       
@@ -153,7 +151,6 @@ const PracticePage = () => {
     setError(null);
     setFeedback(null);
     setStudentAnswer('');
-    setTranscript('');
 
     try {
       const response = await fetch('/api/practice/generate', {
@@ -236,7 +233,6 @@ const PracticePage = () => {
     // Clear current state and show loading
     setCurrentQuestion(null);
     setStudentAnswer('');
-    setTranscript('');
     setFeedback(null);
     setError(null);
     setInputMode('type');
@@ -253,9 +249,6 @@ const PracticePage = () => {
           <a href="/" className="text-2xl font-bold text-practizio-navy hover:text-practizio-coral transition">
             Practizio
           </a>
-          <span className="text-sm bg-practizio-coral bg-opacity-10 text-practizio-coral px-4 py-2 rounded-full font-semibold">
-            Practice Mode
-          </span>
         </div>
       </header>
 
@@ -390,9 +383,6 @@ const PracticePage = () => {
                   </button>
                 </div>
                 </div>
-                <p className="text-xs bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-2 rounded mb-2">
-                  💡 <strong>Remember:</strong> This method is only for practicing how to use tell me about when you are unsure whether a direct question is safe to ask. Use it to give people space to choose what they want to share, not as a replacement for normal questions.
-                </p>
               </div>
               
               <p className="text-sm text-gray-600 mb-4">

@@ -5,13 +5,10 @@ A full-stack React application for mastering conversation skills through open-en
 ## Features
 
 - 🔐 **User Authentication** - Passwordless magic code login via InstantDB
-- 👥 **Role-Based Access** - Admin and regular user roles with different permissions
-- 📚 **Practice Library** - Browse and search through practice exercises
-- 🎯 **Targeted Practice** - Select specific practices or use random generation
-- ⚙️ **Admin Dashboard** - Manage practices and system prompts
-- 🔍 **Advanced Search** - Filter by title, description, tags, and category
-- 🤖 **AI-Powered** - Uses OpenAI to generate questions and provide feedback
-- 💾 **Real-time Database** - InstantDB for instant synchronization
+- 🎯 **Conversation Practice** - Transform closed questions into open-ended conversations
+- 🤖 **AI-Powered Feedback** - Uses OpenAI to generate questions and provide feedback
+- 🎤 **Voice Input** - Type or speak your answers
+- 💾 **Real-time Database** - InstantDB for user profiles and data storage
 
 ## Getting Started
 
@@ -33,24 +30,20 @@ cd /Users/khanhnguyen/Desktop/Practizio
 npm install
 ```
 
-3. **Set up InstantDB:**
-   - Visit https://instantdb.com/dash and create an account
-   - Create a new app called "Practizio"
-   - Copy your APP_ID
-   - Follow the detailed setup guide in `INSTANTDB_SETUP.md`
-
-4. **Set up environment variables:**
+3. **Set up environment variables:**
 
 Copy the example env file:
 ```bash
 cp .env.example .env
 ```
 
-Then edit `.env` and add your API keys:
+Then edit `.env` and add your OpenAI API key:
 ```
-REACT_APP_INSTANT_APP_ID=your_instant_app_id_here
+REACT_APP_INSTANT_APP_ID=6d871603-afb3-4232-94a2-649397647a60
 REACT_APP_OPENAI_API_KEY=your_openai_api_key_here
 ```
+
+**Note:** The InstantDB App ID is already configured in the example file.
 
 **Important:** The `.env` file is already in `.gitignore` to keep your API keys secure.
 
@@ -77,20 +70,16 @@ The app will open at [http://localhost:3000](http://localhost:3000)
 
 After starting the app:
 
-1. **Create Your Account**
-   - Go to `/signup` and create an account
-   - Check your email for the magic code
+1. **Sign In**
+   - Go to `/login` and enter your email
+   - You'll receive a magic code via email
+   - Enter the code to sign in (no password needed!)
 
-2. **Promote to Admin**
-   - Follow instructions in `INSTANTDB_SETUP.md` to promote your account to admin
+2. **Start Practicing**
+   - Click "Start Practicing" on the home page
+   - Answer questions and get AI feedback
 
-3. **Create Your First Practice**
-   - Visit `/admin` (Admin Dashboard)
-   - Create a system prompt
-   - Create a practice exercise
-   - Start practicing!
-
-For detailed setup instructions, see **[INSTANTDB_SETUP.md](./INSTANTDB_SETUP.md)**
+For detailed authentication setup instructions, see **[AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md)**
 
 ## Environment Variables
 
@@ -212,15 +201,20 @@ The design is inspired by modern educational platforms with:
 
 ## Quick Links
 
-- **Admin Dashboard:** `/admin` (requires admin role)
-- **Browse Practices:** `/browse` (requires login)
-- **Random Practice:** `/practice` (requires login)
-- **Login:** `/login`
-- **Signup:** `/signup`
+- **Home Page:** `/`
+- **Login/Signup:** `/login`
+- **Practice:** `/practice` (requires login)
 
 ## Troubleshooting
 
-Common issues and solutions are documented in `INSTANTDB_SETUP.md`, section 8.
+### Authentication Issues
+- Make sure your `.env` file has the correct InstantDB App ID
+- For Google OAuth, ensure it's configured in the InstantDB dashboard
+- Restart your dev server after updating environment variables
+
+### API Issues
+- Check that your OpenAI API key is valid and has credits
+- Verify the backend server is running on port 5001
 
 ## Contributing
 

@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ConversationPage = () => {
+  const { currentUser, signOut } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const menuRef = useRef(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      setShowUserMenu(false);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
   const conversationData = [
     {
       instead: "Are you married?",
@@ -29,10 +55,48 @@ const ConversationPage = () => {
             <h1 className="text-2xl font-bold text-practizio-navy">Practizio</h1>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-600 hover:text-practizio-navy transition">Browse</a>
-            <button className="bg-practizio-coral text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition font-medium">
-              Login
-            </button>
+            <Link to="/" className="text-gray-600 hover:text-practizio-navy transition">Browse</Link>
+            {currentUser ? (
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center space-x-2 text-gray-700 hover:text-practizio-navy transition"
+                >
+                  <div className="w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-semibold">
+                    {currentUser?.email?.[0]?.toUpperCase() || 'U'}
+                  </div>
+                  <span className="font-medium">{currentUser?.email?.split('@')[0] || 'User'}</span>
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-xs text-gray-500">Signed in as</p>
+                      <p className="text-sm font-medium text-gray-900 truncate">{currentUser?.email || 'User'}</p>
+                    </div>
+                    <Link
+                      to="/"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-practizio-beige transition"
+                      onClick={() => setShowUserMenu(false)}
+                    >
+                      Browse
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login">
+                <button className="bg-practizio-coral text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition font-medium">
+                  Login
+                </button>
+              </Link>
+            )}
           </nav>
         </div>
       </header>
@@ -136,11 +200,11 @@ const ConversationPage = () => {
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
                   Ready to Practice?
                 </h3>
-              <a href="/practice?autostart=true">
+              <Link to="/?autostart=true">
                 <button className="bg-practizio-coral text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-practizio-orange transition-all transform hover:scale-105 shadow-xl animate-gentle-pulse">
                   Start Practicing
                 </button>
-              </a>
+              </Link>
               </div>
             </div>
           </div>
