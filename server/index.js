@@ -2,9 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import practiceRoutes from './routes/practice.js';
+import miniPracticeRoutes from './routes/miniPractice.js';
+import { initializeDatabase } from './database/db.js';
 
 // Load environment variables
 dotenv.config();
+
+// Initialize database
+initializeDatabase();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -15,6 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/practice', practiceRoutes);
+app.use('/api/mini-practices', miniPracticeRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@instantdb/core": "^0.22.86",
     "@instantdb/react": "^0.22.86",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -15,7 +16,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node server/index.js",
-    "dev": "concurrently \"npm run server\" \"npm start\""
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "seed-instantdb": "node scripts/seed-instantdb.js",
+    "push-schema": "npx instant-cli push schema --app 6d871603-afb3-4232-94a2-649397647a60"
   },
   "eslintConfig": {
     "extends": [

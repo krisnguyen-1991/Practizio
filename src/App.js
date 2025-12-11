@@ -8,6 +8,7 @@ import LessonPage from './components/LessonPage';
 import PracticePage from './components/PracticePage';
 import LoginPage from './components/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import SeedDatabase from './components/SeedDatabase';
 
 function AppContent() {
   // Automatically create user profile when user logs in
@@ -43,6 +44,7 @@ function AppContent() {
           />
           <Route path="/about" element={<ConversationPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/seed" element={<SeedDatabase />} />
         </Routes>
       </div>
     </Router>

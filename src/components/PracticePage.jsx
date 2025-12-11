@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import CollapsibleHint from './CollapsibleHint';
+import { usePracticeById } from '../utils/instantdb-practices';
 
 const PracticePage = () => {
+  // Get practice ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const practiceId = urlParams.get('practiceId');
+  
+  // Fetch practice and system prompt from InstantDB
+  const { data } = usePracticeById(practiceId);
+  const practice = data?.practices?.[0];
+  const systemPrompt = practice?.systemPrompt?.content;
+
   // State management
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [studentAnswer, setStudentAnswer] = useState('');
@@ -18,14 +28,13 @@ const PracticePage = () => {
    * Auto-start question generation if coming from main page
    */
   React.useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
     const autostart = urlParams.get('autostart');
     
-    if (autostart === 'true' && !currentQuestion && !loading) {
+    if (autostart === 'true' && !currentQuestion && !loading && systemPrompt) {
       handleStartPracticing();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [systemPrompt]);
 
   /**
    * Initialize speech recognition on component mount
@@ -158,6 +167,9 @@ const PracticePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          systemPrompt: systemPrompt // Send the system prompt from InstantDB
+        }),
       });
 
       if (!response.ok) {
@@ -200,6 +212,7 @@ const PracticePage = () => {
         body: JSON.stringify({
           studentAnswer: studentAnswer,
           originalTopic: currentQuestion?.closedQuestion || '',
+          systemPrompt: systemPrompt // Send the system prompt from InstantDB
         }),
       });
 

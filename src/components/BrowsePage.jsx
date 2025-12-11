@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useAllPractices } from '../utils/instantdb-practices';
 
 const BrowsePage = () => {
   const { currentUser, signOut } = useAuth();
-  const [practices, setPractices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, isLoading, error: dbError } = useAllPractices();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef(null);
 
@@ -31,34 +30,10 @@ const BrowsePage = () => {
     }
   };
 
-  // Single practice about "Tell me about"
-  useEffect(() => {
-    const loadPractices = async () => {
-      setLoading(true);
-      try {
-        // Only one practice for now
-        const practice = [
-          {
-            id: 'tell-me-about',
-            title: 'Tell Me About',
-            description: 'Learn how to transform closed questions into open-ended "Tell me about..." statements',
-            category: 'conversation',
-            estimatedTime: '10 min',
-            question: 'Tell me about your family'
-          }
-        ];
-        
-        setPractices(practice);
-      } catch (err) {
-        setError('Failed to load practices. Please try again.');
-        console.error('Error loading practices:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPractices();
-  }, []);
+  // Get practices from InstantDB
+  const practices = data?.practices || [];
+  const loading = isLoading;
+  const error = dbError ? 'Failed to load practices from database' : null;
 
   // No filtering needed for single practice
   const filteredPractices = practices;
@@ -123,7 +98,7 @@ const BrowsePage = () => {
             Practice
           </h1>
           <p className="text-lg text-gray-600">
-            Learn how to transform questions into engaging conversations
+            Small steps repeated often lead to big results.
           </p>
         </div>
 
@@ -152,18 +127,20 @@ const BrowsePage = () => {
                 <p className="text-gray-500">Try adjusting your search or filter</p>
               </div>
             ) : (
-              <div className="max-w-md mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPractices.map((practice) => (
                   <div
                     key={practice.id}
                     className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-6 border border-gray-100"
                   >
                     {/* Category Badge */}
-                    <div className="mb-3">
-                      <span className="inline-block px-3 py-1 bg-practizio-coral bg-opacity-10 text-practizio-coral rounded-full text-xs font-semibold">
-                        Conversation Skills
-                      </span>
-                    </div>
+                    {practice.category && (
+                      <div className="mb-3">
+                        <span className="inline-block px-3 py-1 bg-practizio-coral bg-opacity-10 text-practizio-coral rounded-full text-xs font-semibold">
+                          {practice.category}
+                        </span>
+                      </div>
+                    )}
 
                     {/* Title */}
                     <h3 className="text-xl font-bold text-practizio-navy mb-2">
@@ -175,13 +152,16 @@ const BrowsePage = () => {
                       {practice.description}
                     </p>
 
-                    {/* Example Question */}
-                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                      <p className="text-xs text-gray-500 mb-1">Example:</p>
-                      <p className="text-sm font-medium text-practizio-navy">
-                        {practice.question}
-                      </p>
-                    </div>
+                    {/* Tags */}
+                    {practice.tags && practice.tags.length > 0 && (
+                      <div className="mb-4 flex flex-wrap gap-2">
+                        {practice.tags.map((tag, index) => (
+                          <span key={index} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
 
                     {/* Start Button */}
@@ -189,7 +169,7 @@ const BrowsePage = () => {
                       onClick={() => handleStartPractice(practice.id)}
                       className="w-full bg-practizio-coral text-white px-6 py-3 rounded-full hover:bg-practizio-orange transition font-semibold"
                     >
-                      Start Practice
+                      Start Learning
                     </button>
                   </div>
                 ))}

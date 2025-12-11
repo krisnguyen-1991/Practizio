@@ -1,0 +1,75 @@
+### Test Mini Practices API
+### This file can be used with REST Client extension in VS Code
+
+### Health Check
+GET http://localhost:5001/api/health
+
+###
+
+### Get All Mini Practices
+GET http://localhost:5001/api/mini-practices
+
+###
+
+### Get Practice by ID (with System Prompt)
+GET http://localhost:5001/api/mini-practices/1
+
+###
+
+### Get Practice by ID #2
+GET http://localhost:5001/api/mini-practices/2
+
+###
+
+### Get All Categories
+GET http://localhost:5001/api/mini-practices/meta/categories
+
+###
+
+### Get Practices by Category
+GET http://localhost:5001/api/mini-practices/category/Communication%20Skills
+
+###
+
+### Search Practices
+GET http://localhost:5001/api/mini-practices/search?q=conversation
+
+###
+
+### Create New Practice
+POST http://localhost:5001/api/mini-practices
+Content-Type: application/json
+
+{
+  "title": "Active Listening",
+  "description": "Practice the art of active listening by asking follow-up questions that show genuine interest and understanding.",
+  "tags": ["intermediate", "listening", "empathy"],
+  "category": "Communication Skills",
+  "systemPrompt": "You are a coach teaching active listening skills. Guide students to ask questions that demonstrate they're truly hearing and understanding the other person's experience."
+}
+
+###
+
+### Update Practice
+PUT http://localhost:5001/api/mini-practices/1
+Content-Type: application/json
+
+{
+  "title": "Conversation Basics - Updated",
+  "description": "Master the art of turning closed questions into engaging open-ended conversations. Now with more examples!"
+}
+
+###
+
+### Delete Practice (be careful!)
+# DELETE http://localhost:5001/api/mini-practices/3
+
+###
+
+### Generate Practice Question (using practice 1's system prompt)
+POST http://localhost:5001/api/practice/generate
+Content-Type: application/json
+
+{
+  "systemPrompt": "Get this from GET /api/mini-practices/1"
+}

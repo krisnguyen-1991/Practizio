@@ -1,22 +1,59 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { usePracticeById } from '../utils/instantdb-practices';
 
 const LessonPage = () => {
   const navigate = useNavigate();
   const { practiceId } = useParams();
+  
+  // Fetch practice from InstantDB
+  const { data, isLoading } = usePracticeById(practiceId);
 
-  // Update page title based on practice ID
+  const practice = data?.practices?.[0];
+
+  // Update page title based on practice
   useEffect(() => {
-    const practiceTitles = {
-      'tellmeabout': 'Tell Me About'
-    };
-    const title = practiceTitles[practiceId] || 'Lesson';
-    document.title = `${title} - Practizio`;
-  }, [practiceId]);
+    if (practice) {
+      document.title = `${practice.title} - Practizio`;
+    }
+  }, [practice]);
 
   const handleStartPractice = () => {
-    // Navigate to practice session with autostart parameter
+    // Navigate to practice session with autostart parameter and practiceId
     navigate(`/practice-session?autostart=true&practiceId=${practiceId}`);
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-practizio-beige to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-practizio-coral border-t-transparent"></div>
+          <p className="mt-4 text-gray-600">Loading practice...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if practice not found
+  if (!practice) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-practizio-beige to-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-practizio-navy mb-4">Practice Not Found</h1>
+          <Link to="/" className="text-practizio-coral hover:underline">
+            Go back to browse
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Determine which content to show (for now, default to tell me about)
+  const lessonContent = {
+    title: practice.title,
+    subtitle: practice.description,
+    content: 'tellMeAbout' // Default to tell me about content
   };
 
   return (
@@ -40,153 +77,283 @@ const LessonPage = () => {
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-practizio-navy mb-4">
-            {practiceId === 'tellmeabout' ? 'Transform Questions into Conversations' : 'Practice Lesson'}
+            {lessonContent.title}
           </h1>
           <p className="text-xl text-gray-600">
-            Learn how to turn closed questions into open-ended "Tell me about..." statements
+            {lessonContent.subtitle}
           </p>
         </div>
 
         {/* Lesson Content */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 space-y-8">
-          {/* Introduction */}
-          <section>
-            <h2 className="text-2xl font-bold text-practizio-navy mb-4">
-              Why "Tell Me About" Works Better
-            </h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              When meeting someone new, direct questions can feel too personal or intrusive. 
-              A question that feels normal to you might feel too personal to them, and sometimes 
-              an open-ended question still gets a short answer.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              When that happens, switch to <strong>"Tell me about..."</strong> so they can share 
-              their experience at a pace that feels comfortable.
-            </p>
-          </section>
+          {lessonContent.content === 'tellMeAbout' && (
+            <>
+              {/* Tell Me About Content */}
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  Why "Tell Me About" Works Better
+                </h2>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  When meeting someone new, direct questions can feel too personal or intrusive. 
+                  A question that feels normal to you might feel too personal to them, and sometimes 
+                  an open-ended question still gets a short answer.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  When that happens, switch to <strong>"Tell me about..."</strong> so they can share 
+                  their experience at a pace that feels comfortable.
+                </p>
+              </section>
 
-          {/* Examples Section */}
-          <section>
-            <h2 className="text-2xl font-bold text-practizio-navy mb-4">
-              Examples
-            </h2>
-            <div className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                {/* Instead Column */}
-                <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    Instead of asking:
-                  </p>
-                  <p className="text-base text-gray-700 font-medium">
-                    Are you married?
-                  </p>
-                </div>
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  Examples
+                </h2>
+                <div className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        Instead of asking:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        Are you married?
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        Try this:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        Tell me about your family.
+                      </p>
+                    </div>
+                  </div>
 
-                {/* Try This Column */}
-                <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
-                  <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
-                    Try this:
-                  </p>
-                  <p className="text-base text-practizio-navy font-semibold">
-                    Tell me about your family.
-                  </p>
-                </div>
-              </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        Instead of asking:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        What do you do for a living?
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        Try this:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        Tell me about your work.
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    Instead of asking:
-                  </p>
-                  <p className="text-base text-gray-700 font-medium">
-                    What do you do for a living?
-                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        Instead of asking:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        Do you have kids?
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        Try this:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        Tell me about your family.
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </section>
 
-                <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
-                  <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
-                    Try this:
-                  </p>
-                  <p className="text-base text-practizio-navy font-semibold">
-                    Tell me about your work.
-                  </p>
-                </div>
-              </div>
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  How It Works
+                </h2>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Identify the Topic</h3>
+                      <p className="text-gray-600 text-sm">
+                        Start with a closed question you want to ask (e.g., "Do you cook?")
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    Instead of asking:
-                  </p>
-                  <p className="text-base text-gray-700 font-medium">
-                    Do you have kids?
-                  </p>
-                </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Transform with "Tell Me About"</h3>
+                      <p className="text-gray-600 text-sm">
+                        Convert it to "Tell me about [topic]" to give them space to share
+                      </p>
+                    </div>
+                  </div>
 
-                <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
-                  <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
-                    Try this:
-                  </p>
-                  <p className="text-base text-practizio-navy font-semibold">
-                    Tell me about your family.
-                  </p>
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      3
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Use Experience Maps</h3>
+                      <p className="text-gray-600 text-sm">
+                        Think about the steps or stages of that experience to guide the conversation
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </section>
+              </section>
 
-          {/* How It Works */}
-          <section>
-            <h2 className="text-2xl font-bold text-practizio-navy mb-4">
-              How It Works
-            </h2>
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
-                  1
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Identify the Topic</h3>
-                  <p className="text-gray-600 text-sm">
-                    Start with a closed question you want to ask (e.g., "Do you cook?")
-                  </p>
-                </div>
-              </div>
+              <section className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                <p className="text-blue-800 text-sm">
+                  💡 <strong>Remember:</strong> This method is only for practicing how to use "tell me about" 
+                  when you are unsure whether a direct question is safe to ask. Use it to give people space 
+                  to choose what they want to share, not as a replacement for normal questions.
+                </p>
+              </section>
+            </>
+          )}
 
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
-                  2
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Transform with "Tell Me About"</h3>
-                  <p className="text-gray-600 text-sm">
-                    Convert it to "Tell me about [topic]" to give them space to share
-                  </p>
-                </div>
-              </div>
+          {lessonContent.content === 'followUp' && (
+            <>
+              {/* Follow-Up Questions Content */}
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  The Power of Follow-Up Questions
+                </h2>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  Great conversations aren't just about asking good opening questions—they're about 
+                  showing genuine interest through thoughtful follow-ups. When someone shares something, 
+                  your follow-up questions signal that you're truly listening and care about their story.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  The key is to <strong>build on what they just said</strong> rather than jumping to a 
+                  completely new topic.
+                </p>
+              </section>
 
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
-                  3
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Use Experience Maps</h3>
-                  <p className="text-gray-600 text-sm">
-                    Think about the steps or stages of that experience to guide the conversation
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  Examples
+                </h2>
+                <div className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        They say:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        I recently started learning guitar.
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        You ask:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        What inspired you to pick up guitar?
+                      </p>
+                    </div>
+                  </div>
 
-          {/* Important Note */}
-          <section className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-            <p className="text-blue-800 text-sm">
-              💡 <strong>Remember:</strong> This method is only for practicing how to use "tell me about" 
-              when you are unsure whether a direct question is safe to ask. Use it to give people space 
-              to choose what they want to share, not as a replacement for normal questions.
-            </p>
-          </section>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        They say:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        I went to Japan last year.
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        You ask:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        What was the highlight of your trip?
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        They say:
+                      </p>
+                      <p className="text-base text-gray-700 font-medium">
+                        I've been really into cooking lately.
+                      </p>
+                    </div>
+                    <div className="bg-practizio-coral bg-opacity-10 rounded-xl p-4 border-2 border-practizio-coral border-opacity-30">
+                      <p className="text-xs font-semibold text-practizio-coral uppercase tracking-wide mb-2">
+                        You ask:
+                      </p>
+                      <p className="text-base text-practizio-navy font-semibold">
+                        What's your favorite dish to make?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold text-practizio-navy mb-4">
+                  Types of Follow-Up Questions
+                </h2>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Curiosity Questions</h3>
+                      <p className="text-gray-600 text-sm">
+                        Ask about what sparked their interest: "What made you decide to...?" or "What inspired you to...?"
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Experience Questions</h3>
+                      <p className="text-gray-600 text-sm">
+                        Dig deeper into their experience: "What was that like?" or "How did it feel when...?"
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-practizio-coral rounded-full flex items-center justify-center text-white font-bold">
+                      3
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Highlight Questions</h3>
+                      <p className="text-gray-600 text-sm">
+                        Focus on the best parts: "What did you enjoy most?" or "What's been the highlight?"
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                <p className="text-blue-800 text-sm">
+                  💡 <strong>Pro Tip:</strong> The best follow-up questions show you were listening. 
+                  Reference specific details they mentioned and ask them to expand on those points.
+                </p>
+              </section>
+            </>
+          )}
         </div>
 
         {/* CTA Section */}
