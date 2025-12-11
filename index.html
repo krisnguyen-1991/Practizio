@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practizio - Master Conversation Skills</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'practizio-navy': '#0A1F44',
+                        'practizio-coral': '#FF6B4A',
+                        'practizio-beige': '#F5F1EA',
+                        'practizio-orange': '#FF8C42',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <h1 class="text-2xl font-bold text-practizio-navy">Practizio</h1>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-600 hover:text-practizio-navy transition">Features</a>
+                <a href="#" class="text-gray-600 hover:text-practizio-navy transition">About</a>
+                <a href="#" class="text-gray-600 hover:text-practizio-navy transition">Resources</a>
+                <button class="bg-practizio-coral text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition font-medium">
+                    Get Started
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-practizio-beige to-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-block mb-4">
+                    <span class="bg-practizio-coral bg-opacity-10 text-practizio-coral px-4 py-2 rounded-full text-sm font-semibold">
+                        Communication Skills
+                    </span>
+                </div>
+                <h2 class="text-5xl md:text-6xl font-bold text-practizio-navy mb-6 leading-tight">
+                    Master the Art of<br>
+                    <span class="text-practizio-coral">Open-Ended Questions</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+                    Learn how to build deeper connections by asking the right questions
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Introduction -->
+            <div class="mb-16 max-w-4xl mx-auto">
+                <div class="bg-practizio-beige rounded-3xl p-10 md:p-12">
+                    <div class="flex items-start space-x-4 mb-6">
+                        <div class="bg-practizio-coral rounded-full p-3 flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-practizio-navy mb-4">
+                                The Art of Asking Better Questions
+                            </h3>
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                It's much easier to ask appropriate open-ended questions of people you know than those you are just meeting. 
+                                Use discretion when meeting new people: Asking a difficult question could put the other person in an awkward position. 
+                                Likewise, sometimes when we are asking open-ended questions, we really are asking questions that require only a 
+                                one- or two-word answer.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Comparison Section -->
+            <div class="mb-16">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-practizio-navy mb-4">
+                        Transform Your Conversations
+                    </h3>
+                    <p class="text-xl text-gray-600">
+                        Here are some new ways to ask old favorites
+                    </p>
+                </div>
+
+                <!-- Table Header -->
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <h4 class="text-lg font-bold text-gray-500 uppercase tracking-wide text-center">
+                                Instead of asking:
+                            </h4>
+                        </div>
+                        <div class="bg-practizio-coral bg-opacity-10 rounded-2xl p-6">
+                            <h4 class="text-lg font-bold text-practizio-coral uppercase tracking-wide text-center">
+                                Try this:
+                            </h4>
+                        </div>
+                    </div>
+
+                    <!-- Question Pairs -->
+                    <div class="space-y-6">
+                        <!-- Pair 1 -->
+                        <div class="grid md:grid-cols-2 gap-6 items-stretch">
+                            <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 flex items-center justify-center transition-all hover:border-gray-300 hover:shadow-md">
+                                <p class="text-lg text-gray-700 text-center font-medium">
+                                    "Are you married?"
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-practizio-coral to-practizio-orange rounded-2xl p-8 flex items-center justify-center shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+                                <p class="text-lg text-white text-center font-semibold">
+                                    "Tell me about your family."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Pair 2 -->
+                        <div class="grid md:grid-cols-2 gap-6 items-stretch">
+                            <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 flex items-center justify-center transition-all hover:border-gray-300 hover:shadow-md">
+                                <p class="text-lg text-gray-700 text-center font-medium">
+                                    "What do you do for a living?"
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-practizio-coral to-practizio-orange rounded-2xl p-8 flex items-center justify-center shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+                                <p class="text-lg text-white text-center font-semibold">
+                                    "Tell me about your business/work."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Pair 3 -->
+                        <div class="grid md:grid-cols-2 gap-6 items-stretch">
+                            <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 flex items-center justify-center transition-all hover:border-gray-300 hover:shadow-md">
+                                <p class="text-lg text-gray-700 text-center font-medium">
+                                    "Do you have kids?"
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-practizio-coral to-practizio-orange rounded-2xl p-8 flex items-center justify-center shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+                                <p class="text-lg text-white text-center font-semibold">
+                                    "Tell me about your family."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Pair 4 -->
+                        <div class="grid md:grid-cols-2 gap-6 items-stretch">
+                            <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 flex items-center justify-center transition-all hover:border-gray-300 hover:shadow-md">
+                                <p class="text-lg text-gray-700 text-center font-medium">
+                                    "What's your favorite hobby?"
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-practizio-coral to-practizio-orange rounded-2xl p-8 flex items-center justify-center shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+                                <p class="text-lg text-white text-center font-semibold">
+                                    "Tell me about your favorite hobby."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-practizio-navy rounded-3xl p-12 md:p-16 text-center relative overflow-hidden">
+                    <!-- Decorative circles -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-practizio-coral opacity-10 rounded-full -mr-32 -mt-32"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-practizio-orange opacity-10 rounded-full -ml-24 -mb-24"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                            Ready to Practice?
+                        </h3>
+                        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Start improving your conversation skills today with interactive exercises and real-world scenarios
+                        </p>
+                        <button onclick="alert('Welcome to Practizio! Let\'s start practicing!')" class="bg-practizio-coral text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-practizio-orange transition-all transform hover:scale-105 shadow-xl cursor-pointer">
+                            Start Practicing
+                        </button>
+                        <p class="text-gray-400 mt-4 text-sm">
+                            No credit card required · Free to start
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-practizio-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Practizio</h4>
+                    <p class="text-gray-400">
+                        Master the art of conversation through practice
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Product</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Company</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">About</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Legal</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>© 2025 Practizio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

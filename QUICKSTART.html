@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practizio - Setup Required</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .step { counter-increment: step; }
+        .step::before {
+            content: counter(step);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: #FF6B4A;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">🚀 Practizio Setup</h1>
+            <p class="text-xl text-gray-600">Get your AI-powered practice app running in minutes!</p>
+        </div>
+
+        <!-- Status Card -->
+        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-8 mb-8">
+            <div class="flex items-start space-x-4">
+                <svg class="w-8 h-8 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div>
+                    <h2 class="text-2xl font-bold text-yellow-900 mb-2">Node.js Required</h2>
+                    <p class="text-yellow-800 text-lg">To use the AI-powered practice feature, you need to install Node.js and run the development servers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Steps -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8" style="counter-reset: step;">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Installation Steps</h2>
+            
+            <div class="space-y-6">
+                <!-- Step 1 -->
+                <div class="step flex items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Install Node.js</h3>
+                        <p class="text-gray-600 mb-3">Download and install Node.js LTS version from:</p>
+                        <a href="https://nodejs.org/" target="_blank" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                            Download Node.js →
+                        </a>
+                        <p class="text-sm text-gray-500 mt-2">⚠️ You must restart your terminal after installation</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 my-6"></div>
+
+                <!-- Step 2 -->
+                <div class="step flex items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Install Backend Dependencies</h3>
+                        <p class="text-gray-600 mb-3">Open Terminal and run:</p>
+                        <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                            <div>cd /Users/khanhnguyen/Desktop/Practizio/server</div>
+                            <div>npm install</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 my-6"></div>
+
+                <!-- Step 3 -->
+                <div class="step flex items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Install Frontend Dependencies</h3>
+                        <p class="text-gray-600 mb-3">In the same terminal, run:</p>
+                        <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                            <div>cd /Users/khanhnguyen/Desktop/Practizio</div>
+                            <div>npm install</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 my-6"></div>
+
+                <!-- Step 4 -->
+                <div class="step flex items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Start the Backend Server</h3>
+                        <p class="text-gray-600 mb-3">Open a new terminal tab/window and run:</p>
+                        <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                            <div>cd /Users/khanhnguyen/Desktop/Practizio/server</div>
+                            <div>npm start</div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-2">✓ Keep this terminal running</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 my-6"></div>
+
+                <!-- Step 5 -->
+                <div class="step flex items-start">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Start the Frontend Server</h3>
+                        <p class="text-gray-600 mb-3">Open another new terminal tab/window and run:</p>
+                        <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                            <div>cd /Users/khanhnguyen/Desktop/Practizio</div>
+                            <div>npm start</div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-2">✓ This will automatically open http://localhost:3000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What You'll Get -->
+        <div class="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white mb-8">
+            <h2 class="text-3xl font-bold mb-6">What You'll Get 🎉</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="flex items-start space-x-3">
+                    <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold mb-1">AI-Powered Practice</h3>
+                        <p class="text-purple-100">Real-time question generation with OpenAI</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold mb-1">Experience Map Hints</h3>
+                        <p class="text-purple-100">Visual breakdowns of conversation topics</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold mb-1">Instant Feedback</h3>
+                        <p class="text-purple-100">Get corrections and suggestions</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold mb-1">Alternative Examples</h3>
+                        <p class="text-purple-100">3 additional ways to ask each question</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">🔧 Troubleshooting</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-bold text-gray-900 mb-1">Command not found: node</h3>
+                    <p class="text-gray-600">Make sure you've installed Node.js and restarted your terminal completely.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 mb-1">Port already in use</h3>
+                    <p class="text-gray-600">Another app is using the port. Try closing other development servers.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 mb-1">OpenAI API error</h3>
+                    <p class="text-gray-600">Your API key is already configured in .env file. Make sure both servers are running.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-gray-500">
+            <p>Need help? Check out <strong>SETUP.md</strong> in the project folder for detailed instructions.</p>
+        </div>
+    </div>
+</body>
+</html>
+
